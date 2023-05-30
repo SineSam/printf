@@ -12,8 +12,8 @@
 
 int _printf(const char *format, ...)
 {
-	unsigned i;
-	unsigned count = 0;
+	unsigned int i;
+	unsigned int count = 0;
 	va_list list;
 
 	va_start(list, format);
@@ -28,6 +28,7 @@ int _printf(const char *format, ...)
 				case 'c':
 					{
 					int c;
+
 					c = va_arg(list, int);
 					write(1, &c, 1);
 					count++;
@@ -36,7 +37,9 @@ int _printf(const char *format, ...)
 				case 's':
 					{
 					char *s = va_arg(list, char *);
+
 					size_t len = strlen(s);
+
 					write(1, s, len);
 					count += len;
 					break;
@@ -45,7 +48,7 @@ int _printf(const char *format, ...)
 				case 'i':
 					{
 						int num = va_arg(list, int);
-						int num_abs = (num < 0) ? -num: num;
+						int num_abs = (num < 0) ? -num : num;
 						char num_str[20];
 						int len = 0;
 						int i;
@@ -55,12 +58,10 @@ int _printf(const char *format, ...)
 							write(1, "-", 1);
 							count++;
 						}
-						do
-						{
+						do {
 							num_str[len++] = '0' + (num_abs % 10);
 							num_abs /= 10;
-						}
-						while (num_abs != 0);
+						} while (num_abs != 0);
 
 						for (i = len - 1; i >= 0; i--)
 						{
@@ -68,7 +69,6 @@ int _printf(const char *format, ...)
 							count++;
 						}
 						break;
-						
 					}
 				case '%':
 					{
