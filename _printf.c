@@ -41,7 +41,47 @@ int _printf(const char *format, ...)
 					count += len;
 					break;
 					}
-			}
+				case 'd':
+				case 'i':
+					{
+						int num = va_arg(list, int);
+						int num_abs = (num < 0) ? -num: num;
+						char num_str[20];
+						int len = 0;
+						int i;
+
+						if (num < 0)
+						{
+							write(1, "-", 1);
+							count++;
+						}
+						do
+						{
+							num_str[len++] = '0' + (num_abs % 10);
+							num_abs /= 10;
+						}
+						while (num_abs != 0);
+
+						for (i = len - 1; i >= 0; i--)
+						{
+							write(1, &num_str[i], 1);
+							count++;
+						}
+						break;
+				case '%':
+					{
+						write(1, "%", 1);
+						count++;
+						break;
+					}
+				default:
+					{
+					write(1, "%", 1);
+					count++;
+					write(1, format, 1);
+					count++;
+					break;
+					}
 		}
 		else
 		{
