@@ -68,6 +68,8 @@ int _printf(const char *format, ...)
 							count++;
 						}
 						break;
+						
+					}
 				case '%':
 					{
 						write(1, "%", 1);
@@ -82,6 +84,7 @@ int _printf(const char *format, ...)
 					count++;
 					break;
 					}
+			}
 		}
 		else
 		{
